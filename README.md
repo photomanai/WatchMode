@@ -55,8 +55,8 @@ Bu layihə xüsusi olaraq veb təhlükəsizliyi standartlarına (OWASP) uyğun h
 ### 1\. Kloun edin
 
 ```bash
-git clone https://github.com/photomanai/WatchMode---Film-Catalog.git
-cd WatchMode---Film-Catalog
+git clone https://github.com/photomanai/WatchMode
+cd WatchMode
 ```
 
 ### 2\. Kitabxanaları yükləyin
