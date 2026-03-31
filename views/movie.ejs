@@ -1,10 +1,10 @@
 <%- include('partials/header') %>
-
 <div class="flex flex-col md:flex-row gap-10">
   <div class="md:w-1/3">
-    <img src="<%= movie.poster_url %>" class="rounded-2xl shadow-2xl w-full border border-stone-800" alt="<%= movie.title %>">
+    <img src="<%= movie.poster_url %>" class="rounded-2xl shadow-2xl w-full border border-stone-800">
     
     <form action="/movie/<%= movie.id %>/save" method="POST" class="mt-6">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <button type="submit" class="w-full py-4 rounded-xl font-medium transition-all flex items-center justify-center gap-2 <%= isSaved ? 'bg-stone-800 text-amber-500 border border-amber-900/50' : 'bg-amber-600 hover:bg-amber-700 text-white' %>">
         <i class="fa-solid <%= isSaved ? 'fa-bookmark' : 'fa-plus' %>"></i>
         <%= isSaved ? 'Yadda Saxlanılanlardan Çıxar' : 'Profilimə Yadda Saxla' %>
@@ -14,46 +14,34 @@
   
   <div class="flex-1">
     <h2 class="text-4xl font-bold text-white mb-2"><%= movie.title %></h2>
-    <p class="text-stone-400 mb-6"><%= movie.year %> • <%= movie.runtime || '?' %> dəq • IMDb: <span class="text-amber-400"><%= movie.imdb_rating || 'N/A' %></span></p>
+    <p class="text-stone-400 mb-6"><%= movie.year %> • IMDb: <span class="text-amber-400"><%= movie.imdb_rating %></span></p>
     
     <div class="bg-stone-900/50 p-6 rounded-2xl border border-stone-800 mb-10">
       <h3 class="text-lg font-semibold text-white mb-3">Xülasə</h3>
-      <p class="text-stone-300 leading-relaxed"><%= movie.plot || 'Bu film üçün hələ xülasə mövcud deyil.' %></p>
+      <p class="text-stone-300"><%= movie.plot %></p>
     </div>
 
-    <h3 class="text-xl font-semibold text-white mb-4 border-b border-stone-800 pb-2">İcmalar tərəfindən rəylər</h3>
-    
     <% if(user) { %>
       <form action="/movie/<%= movie.id %>/comment" method="POST" class="mb-8 relative">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <textarea name="content" required rows="3" placeholder="Bu film haqqında nə düşünürsən?" 
-                  class="w-full bg-stone-900 border border-stone-700 focus:border-amber-500 rounded-xl p-4 text-white outline-none resize-none"></textarea>
-        <button type="submit" class="absolute bottom-4 right-4 bg-stone-200 text-stone-900 hover:bg-white px-5 py-2 rounded-lg font-medium text-sm transition">Göndər</button>
+        <textarea name="content" required rows="3" placeholder="Nə düşünürsən?" class="w-full bg-stone-900 border border-stone-700 rounded-xl p-4 text-white outline-none"></textarea>
+        <button type="submit" class="absolute bottom-4 right-4 bg-stone-200 text-stone-900 px-5 py-2 rounded-lg font-medium text-sm">Göndər</button>
       </form>
-    <% } else { %>
-      <div class="bg-stone-900 p-4 rounded-xl mb-8 text-center border border-stone-800 text-stone-400">
-        Rəy bildirmək üçün <a href="/login" class="text-amber-500 hover:underline">daxil olmalısan</a>.
-      </div>
     <% } %>
-
     <div class="space-y-4">
-      <% if(comments.length > 0) { %>
-        <% comments.forEach(comment => { %>
-          <div class="bg-stone-900 p-5 rounded-2xl border border-stone-800">
-            <div class="flex items-center gap-3 mb-2">
-              <div class="w-8 h-8 rounded-full bg-stone-800 flex items-center justify-center text-amber-500 font-bold text-sm">
-                <%= comment.username.charAt(0).toUpperCase() %>
-              </div>
-              <span class="font-medium text-stone-200"><%= comment.username %></span>
-            </div>
-            <p class="text-stone-400"><%= comment.content %></p>
-          </div>
-        <% }) %>
-      <% } else { %>
-        <p class="text-stone-600">Hələ rəy yoxdur. İlk rəyi sən yaz!</p>
-      <% } %>
-    </div>
+  <% if(comments && comments.length > 0) { %>
+    <% comments.forEach(comment => { %>
+      <div class="bg-stone-900 p-5 rounded-2xl border border-stone-800">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="font-medium text-stone-200"><%= comment.username %></span>
+        </div>
+        <p class="text-stone-400"><%= comment.content %></p>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <p class="text-stone-600">Hələ rəy yoxdur.</p>
+  <% } %>
+</div>
   </div>
 </div>
-
 <%- include('partials/footer') %>

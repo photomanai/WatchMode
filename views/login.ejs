@@ -1,43 +1,24 @@
 <%- include('partials/header') %>
-
 <div class="max-w-md mx-auto mt-16 bg-stone-900 border border-stone-800 rounded-3xl p-8 shadow-2xl">
   <div class="text-center mb-8">
     <h2 class="text-3xl font-bold text-white mb-2">Daxil Ol</h2>
-    <p class="text-stone-400">Yenidən xoş gəldin! Film gecəsinə davam edək.</p>
+    <p class="text-stone-400">Yenidən xoş gəldin!</p>
   </div>
-
   <% if (typeof error !== 'undefined' && error) { %>
-    <div class="bg-red-900/20 border border-red-500/50 text-red-400 px-4 py-3 rounded-xl mb-6 text-sm text-center">
-      <%= error %>
-    </div>
+    <div class="bg-red-900/20 border border-red-500/50 text-red-400 px-4 py-3 rounded-xl mb-6 text-sm text-center"><%= error %></div>
   <% } %>
-
-  <% if (message) { %>
-    <div class="success-msg"><%= message %></div>
-  <% } %>
-
   <form action="/login" method="POST" class="space-y-5">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <div>
-      <label class="block text-stone-400 text-sm font-medium mb-2" for="email">E-poçt</label>
-      <input type="email" id="email" name="email" required placeholder="numune@mail.com"
-             class="w-full bg-stone-950 border border-stone-700 rounded-xl px-4 py-3 text-white outline-none focus:border-amber-500 transition-colors shadow-inner">
+      <label class="block text-stone-400 text-sm font-medium mb-2">E-poçt</label>
+      <input type="email" name="email" required class="w-full bg-stone-950 border border-stone-700 rounded-xl px-4 py-3 text-white outline-none focus:border-amber-500 transition-colors shadow-inner">
     </div>
-    
     <div>
-      <label class="block text-stone-400 text-sm font-medium mb-2" for="password">Şifrə</label>
-      <input type="password" id="password" name="password" required placeholder="••••••••"
-             class="w-full bg-stone-950 border border-stone-700 rounded-xl px-4 py-3 text-white outline-none focus:border-amber-500 transition-colors shadow-inner">
+      <label class="block text-stone-400 text-sm font-medium mb-2">Şifrə</label>
+      <input type="password" name="password" required class="w-full bg-stone-950 border border-stone-700 rounded-xl px-4 py-3 text-white outline-none focus:border-amber-500 transition-colors shadow-inner">
     </div>
-
-    <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 rounded-xl transition-colors mt-4 shadow-lg shadow-amber-900/20">
-      Daxil Ol
-    </button>
+    <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 rounded-xl transition-colors mt-4">Daxil Ol</button>
   </form>
-
-  <p class="text-center text-stone-500 mt-8 text-sm">
-    Hesabın yoxdur? <a href="/register" class="text-amber-500 hover:text-amber-400 font-medium transition-colors">İndi Qeydiyyatdan Keç</a>
-  </p>
+  <p class="text-center text-stone-500 mt-8 text-sm">Hesabın yoxdur? <a href="/register" class="text-amber-500 font-medium">Qeydiyyatdan Keç</a></p>
 </div>
-
 <%- include('partials/footer') %>
