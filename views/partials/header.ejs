@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="<%= csrfToken %>">
+  <title>Watchmode</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -10px rgb(0 0 0 / 0.5); }
+    .cozy-gradient { background: linear-gradient(135deg, #1c1917, #292524); box-shadow: 0 0 60px -15px rgba(245, 158, 11, 0.15); }
+  </style>
+</head>
+<body class="bg-stone-950 text-stone-200">
+
+<header class="sticky top-0 z-50 bg-stone-950/80 backdrop-blur-xl border-b border-stone-800">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <i class="fa-solid fa-film text-3xl text-amber-500"></i>
+      <h1 class="text-2xl font-bold tracking-tight text-white">Watchmode</h1>
+    </a>
+    
+    <div class="flex items-center gap-6">
+      <% if(user) { %>
+        <a href="/profile" class="text-stone-400 hover:text-amber-500 transition"><i class="fa-regular fa-user mr-2"></i><%= user.username %></a>
+        <!-- <a href="/logout" class="text-sm bg-stone-800 hover:bg-stone-700 px-4 py-2 rounded-xl transition">Çıkış</a> -->
+        <form method="POST" action="/logout" style="display:inline;">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit">Çıkış</button>
+        </form>
+      <% } else { %>
+        <a href="/login" class="text-stone-400 hover:text-white transition">Giriş Yap</a>
+        <a href="/register" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded-xl transition font-medium">Kayıt Ol</a>
+      <% } %>
+    </div>
+  </div>
+</header>
+<main class="max-w-7xl mx-auto px-6 py-10">
